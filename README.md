@@ -4,129 +4,93 @@
 **Level:** Beginner / Intermediate  
 **Audience:** Computer Science / DevOps / System Administration Students  
 
-Le Linux shell est un programme qui permet d’interagir avec le système d’exploitation via une interface en ligne de commande (CLI). Il agit comme un intermédiaire entre l’utilisateur et le noyau Linux. Avec le shell, vous pouvez exécuter des commandes, manipuler des fichiers, gérer des processus, automatiser des tâches, et écrire des scripts. Contrairement aux interfaces graphiques (GUI), le shell permet une gestion rapide, précise et automatisable du système. Il est essentiel pour les administrateurs système, ingénieurs DevOps, développeurs et ingénieurs cybersécurité.
+## 1. Introduction
 
-## History of Shells
+The Linux shell is a program that allows you to interact with the operating system via a Command Line Interface (CLI). It acts as an intermediary between the user and the Linux kernel, translating your commands into system actions. With the shell, you can execute commands, manage files and directories, monitor and control processes, automate repetitive tasks, and write scripts for advanced operations. Unlike a graphical user interface (GUI), the shell provides fast, precise, and automatable control over the system. It is an essential tool for system administrators, DevOps engineers, developers, and cybersecurity engineers.
 
-**Thompson Shell (1971):** Développé par Ken Thompson pour Unix. Exécution de commandes et redirections simples. Limité et pas de scripting avancé.  
+## 2. History of Shells
 
-**Bourne Shell (1979):** Développé par Stephen Bourne (sh). Introduit les scripts, variables, structures de contrôle, boucles, conditions. Devient le standard pour les scripts Unix.  
+Thompson Shell (1971) – Developed by Ken Thompson for Unix. Basic commands and simple redirections. Limited scripting capabilities. Bourne Shell (sh, 1979) – Developed by Stephen Bourne. Introduced scripting, variables, loops, conditional statements. Became the standard for Unix scripts. Bash (1989) – Developed by Brian Fox for the GNU project. Compatible with Bourne Shell, richer in features, became the default shell on most Linux distributions. Zsh (1990s) – Advanced shell with smart autocompletion, automatic corrections, plugin support, and high customization. Fish (2005) – Friendly Interactive Shell. Modern interface, intelligent suggestions, simple configuration. Understanding the history helps you choose the right shell for your needs and understand the evolution of features over time.
 
-**Bash (1989):** Développé par Brian Fox (Bourne Again Shell) dans le projet GNU. Compatible Bourne Shell, fonctionnalités étendues, shell par défaut sur Linux.  
+## 3. Basic Linux Commands
 
-**Zsh:** Apparait dans les années 1990. Autocomplétion avancée, correction automatique, plugins, personnalisation.  
+pwd – Show current directory  
+ls – List files and directories  
+ls -l – List with details (permissions, owner, size)  
+mkdir project – Create a directory named project  
+touch file.txt – Create an empty file  
+rm file.txt – Remove a file  
+cp file.txt backup.txt – Copy a file  
+mv file.txt folder/ – Move a file  
+cat file.txt – Display file content  
+less file.txt – View file content page by page  
+head -n 10 file.txt – Display first 10 lines  
+tail -n 10 file.txt – Display last 10 lines  
+grep "error" file.log – Search for "error" in a file  
+grep -i "error" file.log – Case-insensitive search  
 
-**Fish:** Apparait en 2005. Interface moderne, suggestions automatiques, configuration simple.
+These commands form the foundation of shell usage. Learning them allows you to manage files and explore directories efficiently.
 
-## Basic Commands
+## 4. Aliases
 
-ls               # list files  
-ls -l            # detailed list  
-pwd              # current directory  
-mkdir folder     # create folder  
-touch file.txt   # create file  
-rm file.txt      # remove file  
-cp file.txt backup.txt # copy file  
-mv file.txt folder/    # move file  
-cat file.txt           # show file content  
+Aliases are shortcuts for commands, making frequently used commands quicker to type. For example, alias ll="ls -la" allows you to type ll instead of ls -la. alias rm="rm -i" ensures the shell asks for confirmation before deleting files. Using aliases can prevent mistakes and save time.
 
-## Alias
+## 5. Command History
 
-alias ll="ls -la"  
-ll  # runs ls -la  
+Linux keeps a history of commands you have executed. This allows you to reuse or search for previous commands. Use history to see all past commands, !45 to execute command number 45 from history, or Ctrl + R for an interactive search. Command history is essential for productivity and error recovery.
 
-## Command History
+## 6. Auto-Completion
 
-history       # show history  
-Ctrl + R      # search history  
-!45           # run command 45  
+Pressing Tab can autocomplete file names, directories, or commands. For example, typing cd /etc/ap and pressing Tab might autocomplete to cd /etc/apache2/. Auto-completion saves typing time and reduces errors.
 
-## Auto-Completion
+## 7. Command Chaining
 
-Press Tab to autocomplete commands, files, directories. Example:  
-cd /etc/ap + TAB → cd /etc/apache2/  
+You can combine commands to execute them in different ways: command1 ; command2 executes sequentially regardless of success, command1 && command2 executes the second only if the first succeeds, and command1 || command2 executes the second only if the first fails. Examples: date ; pwd ; ls, mkdir project && cd project, cd test || echo "Folder does not exist". Chaining is useful for automation and conditional operations.
 
-## Command Chaining
+## 8. Redirections
 
-Sequential:  
-command1 ; command2  
-Example: date ; pwd ; ls  
+Redirections control input and output streams. ls > files.txt saves output to a file (overwrite), ls >> files.txt appends output, command 2> errors.txt redirects errors, command &> all.txt redirects both stdout and stderr, sort < file.txt uses a file as input. Here Document allows writing multiple lines to a file directly: cat <<EOL > newfile.txt line1 line2 line3 EOL. Redirections are key for logging, error handling, and automation.
 
-If success:  
-command1 && command2  
-Example: mkdir project && cd project  
+## 9. Pipes
 
-If fail:  
-command1 || command2  
-Example: cd test || echo "Folder does not exist"  
+Pipes allow you to connect commands so the output of one becomes the input of another. For example: ls -l | grep log, grep "error" file.log | wc -l, or command1 2> errors.txt | command2 > output.txt. Pipes enable powerful data processing directly from the shell.
 
-## Redirections
+## 10. Shell Scripts
 
-Output:  
-ls > files.txt   # overwrite  
-ls >> files.txt  # append  
+A shell script is a file containing multiple commands executed sequentially. Example: #!/bin/bash echo "Hello World" date. Make it executable: chmod +x script.sh and run: ./script.sh. Example loop in script: #!/bin/bash for i in {1..5}; do echo "Line $i"; done. Scripts automate repetitive tasks and improve efficiency.
 
-Error:  
-command 2> errors.txt  
+## 11. Variables
 
-## Pipes
+Variables store data that can be reused. Example: NAME="Yassine"; echo $NAME; DIR="/tmp/test"; mkdir $DIR; cd $DIR. Variables are essential for dynamic scripts and automation.
 
-ls -l | grep log  
-grep "error" file.log | wc -l  
+## 12. Environment Variables
 
-## Shell Scripts
+Environment variables affect system and shell behavior. Example: echo $PATH; export MESSAGE="Hello"; echo $MESSAGE; unset MESSAGE; export PATH=$PATH:/usr/local/bin. Use environment variables to configure paths, messages, and system behavior.
 
-#!/bin/bash  
-echo "Hello World"  
-chmod +x script.sh  
-./script.sh  
+## 13. Linux Permissions
 
-## Variables
+Linux uses permissions to control access. Example: ls -l shows permissions, chmod 755 script.sh sets permissions, chown user file.txt changes owner, chgrp group file.txt changes group. Permissions ensure security and proper access control.
 
-NAME="Yassine"  
-echo $NAME  
+## 14. Job Control
 
-## Environment Variables
+Control background and foreground tasks. Example: command & runs in background, jobs lists jobs, fg %1 brings job to foreground, bg %1 resumes in background, kill %1 terminates a job. Example: sleep 60 & jobs fg %1. Job control is critical for long-running tasks and multitasking.
 
-echo $PATH  
-export MESSAGE="Hello"  
-echo $MESSAGE  
-unset MESSAGE  
+## 15. Security Best Practices
 
-## Linux Permissions
+Always check scripts before execution: cat script.sh. Be cautious with dangerous commands: rm -rf /, dd if=/dev/zero of=/dev/sda. Make scripts safe: set -euo pipefail. Validate variables: if [[ -n "$DIR" ]]; then rm -rf "$DIR"; fi. Good practices prevent accidental data loss and system damage.
 
-r – read, w – write, x – execute  
+## 16. Labs & Exercises
 
-ls -l  
-chmod 755 script.sh  
-chown user file.txt  
+Lab 1: Files and Directories – mkdir Lab1; cd Lab1; touch file1.txt file2.txt file3.txt; ls -l; echo "Hello" > file1.txt; cat file1.txt; cp file1.txt backup_file1.txt; mv file2.txt test_folder/.  
 
-## Job Control
+Lab 2: Variables and Scripts – #!/bin/bash; export NAME="LabUser"; echo "Welcome $NAME"; mkdir /tmp/LabFolder.  
 
-command &    # background  
-jobs         # list jobs  
-fg %1        # foreground  
-kill %1      # terminate  
+Lab 3: Redirections and Pipes – echo -e "line1\nline2\nline3" > file.txt; cat file.txt | grep line2 > result.txt.  
 
-## Security Best Practices
+Lab 4: Jobs – sleep 30 &; jobs; fg %1.  
 
-Always check scripts:  
-cat script.sh  
-
-Dangerous commands:  
-rm -rf /  
-dd if=/dev/zero of=/dev/sda  
-
-## Profiles & Configuration Files
-
-/etc/profile – system login shell  
-~/.bash_profile – user login shell  
-~/.bashrc – user interactive shell  
-~/.bash_logout – logout  
-
-Reload:  
-source ~/.bashrc  
+Lab 5: Loops and Conditions – #!/bin/bash; for i in {1..5}; do if (( i % 2 == 0 )); then echo "$i is even"; else echo "$i is odd"; fi; done.
 
 ## Conclusion
 
-The Linux shell is a powerful tool for system administration, automation, server management, and scripting. Mastering the shell is essential for system administrators and DevOps engineers. Next steps: Learn Bash scripting, explore Zsh, create automation scripts, practice commands regularly.
+The Linux shell is a powerful tool for system administration, automation, server management, and scripting. Mastering the shell is essential for any system administrator or DevOps engineer. To improve: learn Bash scripting, explore Zsh, create automation scripts, and practice Linux commands regularly.
